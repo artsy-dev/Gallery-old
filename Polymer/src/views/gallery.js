@@ -62,7 +62,12 @@ class GalleryPage extends connect(store)(PageViewElement) {
     super.style.setProperty("--grid-width", this._width);
   }
 
-  updateGrid() {}
+  updateGrid(width, height) {
+    if (width) this._width = width;
+    if (height) this._height = height;
+
+    super.style.setProperty("--grid-width", this._width);
+  }
 }
 
 window.customElements.define("gallery-page", GalleryPage);

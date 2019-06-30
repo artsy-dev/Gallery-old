@@ -11,14 +11,15 @@ class GalleryPage extends connect(store)(PageViewElement) {
     return [
       sharedStyles,
       css`
-        .grid-container {
-          display: grid;
-          grid-template-columns: 1fr 1fr 1fr 1fr min-content;
-          grid-column-gap: 20px;
-          grid-row-gap: 20px;
+        :root {
+          --grid-width;
         }
 
-        .grid-item {
+        .grid-container {
+          display: grid;
+          grid-template-columns: repeat(var(--grid-width), 1fr);
+          grid-column-gap: 20px;
+          grid-row-gap: 20px;
         }
       `
     ];
@@ -26,9 +27,9 @@ class GalleryPage extends connect(store)(PageViewElement) {
 
   render() {
     return html`
-      <div class="grid-container ${this._width}_${this._height}">
+      <div class="grid-container">
         ${repeat(
-          new Array(this._height * (this._width + 1)),
+          new Array(this._height * this._width),
           key => key,
           () => html`
             <div class="grid-item">
@@ -55,13 +56,13 @@ class GalleryPage extends connect(store)(PageViewElement) {
 
   constructor() {
     super();
-    this._height = 3;
-    this._width = 4;
+    this._height = 4;
+    this._width = 5;
+
+    super.style.setProperty("--grid-width", this._width);
   }
 
-  stateChanged(state) {
-    this._categories = state.products.categories;
-  }
+  updateGrid() {}
 }
 
 window.customElements.define("gallery-page", GalleryPage);

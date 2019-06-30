@@ -13,7 +13,7 @@ class GalleryPage extends connect(store)(PageViewElement) {
       css`
         .grid-container {
           display: grid;
-          grid-template-columns: 1fr 1fr 1fr 1fr 1fr min-content;
+          grid-template-columns: 1fr 1fr 1fr 1fr min-content;
           grid-column-gap: 20px;
           grid-row-gap: 20px;
         }
@@ -26,34 +26,9 @@ class GalleryPage extends connect(store)(PageViewElement) {
 
   render() {
     return html`
-      <div class="grid-container">
+      <div class="grid-container ${this._width}_${this._height}">
         ${repeat(
-          [
-            1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
-            10,
-            11,
-            12,
-            13,
-            14,
-            15,
-            16,
-            17,
-            18,
-            19,
-            20,
-            21,
-            22,
-            23,
-            24
-          ],
+          new Array(this._height * (this._width + 1)),
           key => key,
           () => html`
             <div class="grid-item">
@@ -72,8 +47,16 @@ class GalleryPage extends connect(store)(PageViewElement) {
 
   static get properties() {
     return {
-      _categories: Array
+      _categories: Array,
+      _height: Number,
+      _width: Number
     };
+  }
+
+  constructor() {
+    super();
+    this._height = 3;
+    this._width = 4;
   }
 
   stateChanged(state) {

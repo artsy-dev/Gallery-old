@@ -1,49 +1,73 @@
-import { html, css } from 'lit-element';
-import { PageViewElement } from '../components/page-view-element';
-import { connect } from 'pwa-helpers/connect-mixin'
-import sharedStyles from '../components/shared-styles';
+import { html, css } from "lit-element";
+import { PageViewElement } from "../components/page-view-element";
+import { connect } from "pwa-helpers/connect-mixin";
+import sharedStyles from "../components/shared-styles";
 
-import { store } from '../store';
-import { repeat } from 'lit-html/directives/repeat';
+import { store } from "../store";
+import { repeat } from "lit-html/directives/repeat";
 
 class GalleryPage extends connect(store)(PageViewElement) {
-	static get styles() {
-		return [
+  static get styles() {
+    return [
       sharedStyles,
       css`
+        :root {
+          --grid-width;
+        }
+
         .grid-container {
           display: grid;
-          grid-template-columns: 200px 1fr 2fr min-content;
+          grid-template-columns: repeat(var(--grid-width), 1fr);
+          grid-column-gap: 20px;
+          grid-row-gap: 20px;
         }
+      `
+    ];
+  }
 
-        .grid-item {
-          
-        }
-			`
-		]
-	}
-
-	render() {
+  render() {
     return html`
       <div class="grid-container">
-        ${repeat([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24], key => key, () => html`
-          <div class="grid-item">
-            <image href="https://loremflickr.com/800/450/dog" height="100%" width="100%">
-          </div>
-        `)}
+        ${repeat(
+          new Array(this._height * this._width),
+          key => key,
+          () => html`
+            <div class="grid-item">
+              <img
+                src="https://loremflickr.com/800/450/dog"
+                alt="placeholder image"
+                height="100%"
+                width="100%"
+              />
+            </div>
+          `
+        )}
       </div>
-		`
-  }
-  
-  static get properties () {
-    return {
-      _categories: Array
-    }
+    `;
   }
 
-  stateChanged(state) {
-    this._categories = state.products.categories;
+  static get properties() {
+    return {
+      _categories: Array,
+      _height: Number,
+      _width: Number
+    };
+  }
+
+  constructor() {
+    super();
+    this._height = 4;
+    this._width = 5;
+
+    super.style.setProperty("--grid-width", this._width);
+  }
+
+  updateGrid(width, height) {
+    if (width) this._width = width;
+    if (height) this._height = height;
+
+    super.style.setProperty("--grid-width", this._width);
   }
 }
 
-window.customElements.define('gallery-page', GalleryPage);
+window.customElements.define("gallery-page", GalleryPage);

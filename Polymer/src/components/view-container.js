@@ -12,7 +12,8 @@ class ViewContainer extends LitElement {
 		return css`
 			:host {
 				display: block;
-				position: relative;
+        position: relative;
+        width: 100%
 			}
       :not([active]) {
         display: none;

@@ -18,8 +18,8 @@ class GalleryPage extends connect(store)(PageViewElement) {
         .grid-container {
           display: grid;
           grid-template-columns: repeat(var(--grid-width), 1fr);
-          grid-column-gap: 20px;
-          grid-row-gap: 20px;
+          grid-column-gap: 10px;
+          grid-row-gap: 10px;
         }
       `
     ];

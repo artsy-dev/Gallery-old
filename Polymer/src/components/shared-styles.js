@@ -4,9 +4,9 @@ export default css`
   :host(.page) {
     display: block;
     width: 100%;
-    max-width: 1440px;
+    max-width: 95%;
     margin: auto;
-    padding-top: 130px;
+    padding-top: 40px;
   }
   :host {
     --paper-input-container-focus-color: var(--app-primary-color);

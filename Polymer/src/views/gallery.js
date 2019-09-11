@@ -69,8 +69,8 @@ class GalleryPage extends connect(store)(PageViewElement) {
 
   constructor() {
     super();
-    this._height = 8;
-    this._width = 6;
+    this._height = 6;
+    this._width = 7;
 
     super.style.setProperty("--grid-width", this._width);
   }
@@ -83,9 +83,9 @@ class GalleryPage extends connect(store)(PageViewElement) {
   }
 
   firstUpdated() {
-    setTimeout(() => {
-      this.animateElements();
-    }, 1000);
+    // setTimeout(() => {
+    //   this.animateElements();
+    // }, 1000);
 
   }
 
@@ -95,17 +95,8 @@ class GalleryPage extends connect(store)(PageViewElement) {
     console.log(selectedElement.children[0]);
     for(var i = 0; i < 20; i+=5){
       selectedElement.children[i].classList.add('crawl');
-    }
-
-    /*
-        for(var i = 0;i < 5;i++){
-      selectedElement.children[i].classList.add('crawl');
-    }
-    */
-    
+    }    
   }
 }
-
-
 
 window.customElements.define("gallery-page", GalleryPage);
